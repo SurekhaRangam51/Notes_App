@@ -6,7 +6,7 @@ const Header = () => {
     <div className='w-11 h-11 '>
       <img src={image} className='w-full h-full '/>
      </div>
-    <p className='text-4xl text-sky-500 font-bold '>Notes</p>
+    <p className='text-4xl text-indigo-500 font-bold '>Notes</p>
     </header>
   )
 }
