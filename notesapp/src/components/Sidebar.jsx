@@ -8,19 +8,19 @@ const Sidebar = () => {
   return (
     <aside className='flex flex-col gap-4 border-r-4 border-gray-100  w-[150px] h-screen px-4 py-4'>
         <NavLink className={getstyle} to=''>
-      <span className="material-symbols-outlined">home</span>
+      <span className="material-icons-outlined">home</span>
         <span>Home</span>
         </NavLink>
         <NavLink className={getstyle} to='/important'>
-        <span class="material-symbols-outlined">label</span>
+        <span class="material-icons-outlined">label</span>
             <span>Important</span>
         </NavLink>
         <NavLink className={getstyle} to='/archieve'>
-            <span className='material-symbols-outlined'>archive</span>
+            <span className='material-icons-outlined'>archive</span>
             <span>Archive</span>
         </NavLink>
         <NavLink className={getstyle} to='/bin'>
-            <span className='material-symbols-outlined'>delete</span>
+            <span className='material-icons-oulined'>delete</span>
             <span>Bin</span>
         </NavLink>
     </aside>

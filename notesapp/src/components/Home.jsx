@@ -1,18 +1,10 @@
 import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
-import { useReducer } from "react";
-import { NotesReducer } from "./Reducers/NotesReducer";
+import NotesCard from './NotesCard'
+import { useNotes } from "./context/NotesContext";
 const Home = () => {
-  const initialstate = {
-    title: "",
-    text: "",
-    notes: [],
-  };
-  const [{ title, text, notes }, notesdispatch] = useReducer(
-    NotesReducer,
-    initialstate
-  );
+  const {id,title,text,notes,notesdispatch}=useNotes()
   const getTitle = (e) => {
     notesdispatch({
       type: "title",
@@ -33,8 +25,10 @@ const Home = () => {
       type: "cleantext",
     });
   };
-  console.log(title);
-  console.log(notes);
+  const pinnednotes=notes?.length>0 && notes.filter(({isPinned})=>isPinned)
+  const othernotes=notes?.length>0 && notes.filter(({isPinned})=>!isPinned)
+    
+  
   return (
     <div>
       <Header />
@@ -58,28 +52,19 @@ const Home = () => {
             />
 
             <button onClick={addNotes} disabled={title.length===0} className="w-7 h-7 absolute bottom-0 right-0  bg-indigo-800 text-slate-50 rounded-full">
-              <span className="material-symbols-outlined">add</span>
+              <span className="material-icons">add</span>
             </button>
           </div>
           <div className='flex flex-wrap gap-3  '>
-            {notes?.length>0 && notes.map(({id,text,title})=>(
-              <div key={id} className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>
-                <div className='flex items-center relative'>
-                <p>{title}</p>
-                <button className='absolute top-0 right-0 '>
-                <span className="material-symbols-outlined">keep</span>
-                </button>
-                
-                </div>
-                <hr />
-                <div className='flex items-center'>
-                  <p>{text}</p>
-                  <div className="ml-auto mt-2">
-                  <button><span className='material-symbols-outlined'>archive</span></button>
-                  <button><span className='material-symbols-outlined'>delete</span></button>
-                </div>
-                </div>
-              </div>
+            {pinnednotes.length>0 && <h1>Pinned Notes</h1>}
+            {pinnednotes?.length>0 && pinnednotes.map(({id,text,title,isPinned})=>(
+            <NotesCard key={id}id={id} text={text} title={title} isPinned={isPinned}/>
+            ))}
+          </div>
+          <div className='flex flex-wrap gap-3  '>
+          {othernotes?.length>0 && <h1>Other Notes</h1>}
+            {othernotes?.length>0 && othernotes.map(({id,text,title,isPinned})=>(
+            <NotesCard key={id}id={id} text={text} title={title} isPinned={isPinned}/>
             ))}
           </div>
         </div>
