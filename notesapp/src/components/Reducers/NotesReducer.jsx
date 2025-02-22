@@ -44,6 +44,12 @@ export const NotesReducer=(state,{type,payload})=>{
                     archive:state.archive.filter((note)=>note.id!==payload.id),
                     notes:[...state.notes,state.archive.filter((note)=>note.id===payload.id)]
                 }
+            case 'add_to_important':
+                return{
+                    ...state,
+                    importantnotes:[...state.importantnotes,state.notes.find((note)=>note.id===payload.id)],
+                    notes:state.notes.filter((note)=>note.id!==payload.id)
+                }
     
         default:
             return state
