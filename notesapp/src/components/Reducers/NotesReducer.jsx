@@ -42,7 +42,7 @@ export const NotesReducer=(state,{type,payload})=>{
                 return{
                     ...state,
                     archive:state.archive.filter((note)=>note.id!==payload.id),
-                    notes:[...state.notes,state.archive.filter((note)=>note.id===payload.id)]
+                    notes:[...state.notes,state.archive.find((note)=>note.id===payload.id)]
                 }
     
         default:

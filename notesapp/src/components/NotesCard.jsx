@@ -37,10 +37,10 @@ const NotesCard = ({id,title,text,isPinned}) => {
         <div className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>
       <div className='flex items-center relative'>
                 <p>{title}</p>
-                {!isArchivenotes ?
+                  {!isArchivenotes &&
                 <button onClick={()=>Pinned(id)}className='absolute top-0 right-0 '>
                 <span className={isPinned ? 'material-icons' : 'material-icons-outlined'}>push_pin</span>
-                </button> :<></>}
+                </button>}
                 
                 </div>
                 <hr />
