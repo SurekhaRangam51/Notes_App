@@ -7,15 +7,15 @@ const Sidebar = () => {
     }
   return (
     <aside className='flex flex-col gap-4 border-r-4 border-gray-100  w-[150px] h-screen px-4 py-4'>
-        <NavLink className={getstyle} to=''>
+        <NavLink className={getstyle} to='/'>
       <span className="material-icons-outlined">home</span>
         <span>Home</span>
         </NavLink>
         <NavLink className={getstyle} to='/important'>
-        <span class="material-icons-outlined">label</span>
+        <span class="material-icons">label</span>
             <span>Important</span>
         </NavLink>
-        <NavLink className={getstyle} to='/archieve'>
+        <NavLink className={getstyle} to='/archive'>
             <span className='material-icons-outlined'>archive</span>
             <span>Archive</span>
         </NavLink>

@@ -32,6 +32,18 @@ export const NotesReducer=(state,{type,payload})=>{
                     ...state,
                     notes:state.notes.map(note=>note.id===payload.id ? {...note,isPinned:!note.isPinned} : note)
                 }
+            case 'add_to_archive':
+                return{
+                    ...state,
+                    archive:[...state.archive,state.notes.find((note)=>note.id===payload.id)],
+                    notes:state.notes.filter((note)=>note.id!==payload.id)
+                }
+            case 'remove_from_archive':
+                return{
+                    ...state,
+                    archive:state.archive.filter((note)=>note.id!==payload.id),
+                    notes:[...state.notes,state.archive.filter((note)=>note.id===payload.id)]
+                }
     
         default:
             return state
