@@ -58,7 +58,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
         <div className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>
       <div className='flex items-center relative'>
                 <p>{title}</p>
-                {!isArchivenotes ?
+                {!isArchivenotes && !isdeletednotes ?
                 <button onClick={()=>Pinned(id)}className='absolute top-0 right-0 '>
                 <span className={isPinned ? 'material-icons' : 'material-icons-outlined'}>push_pin</span>
                 </button> :<></>}
@@ -69,12 +69,14 @@ const NotesCard = ({id,title,text,isPinned}) => {
                   <div className='flex flex-col'>
                   <p>{text}</p>
                   <div>
-                  <button onClick={()=>addImportant(id)}><span className='material-icons-outlined "absolute bottom-0 left-0 '>label</span></button>
+                    {!isdeletednotes &&
+                  <button onClick={()=>addImportant(id)}><span className='material-icons-outlined "absolute bottom-0 left-0 '>label</span></button>}
                   </div>
                   </div>
                   
                   <div className="ml-auto mt-2">
-                  <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>
+                    {!isdeletednotes &&
+                  <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>}
                   <button onClick={()=>onDelete(id)}><span className='material-icons-outlined'>delete</span></button>
                 </div>
                 </div>
