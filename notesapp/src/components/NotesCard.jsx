@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNotes } from './context/NotesContext'
-const NotesCard = ({id,title,text,isPinned,notes}) => {
+const NotesCard = ({id,title,text,isPinned}) => {
     const {notesdispatch}=useNotes()
     const Pinned=(id)=>{
         !isPinned ?
@@ -13,11 +13,8 @@ const NotesCard = ({id,title,text,isPinned,notes}) => {
             payload:{id}
         })
     }
-    const pinnednotes=notes?.length>0 && notes.filter(({isPinned})=>isPinned)
-    const othernotes=notes?.length>0 && notes.filter(({isPinned})=>!isPinned)
     
-    console.log("pinned notes" ,pinnednotes)
-    console.log("not",othernotes)
+    
   return (
     <div>
         <div className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>

@@ -20,7 +20,7 @@ const Sidebar = () => {
             <span>Archive</span>
         </NavLink>
         <NavLink className={getstyle} to='/bin'>
-            <span className='material-icons-oulined'>delete</span>
+            <span className='material-icons-outlined'>delete</span>
             <span>Bin</span>
         </NavLink>
     </aside>
