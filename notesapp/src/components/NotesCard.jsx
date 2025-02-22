@@ -2,8 +2,9 @@ import React from 'react'
 import { useNotes } from './context/NotesContext'
 import { findArchivenotes } from './utils/findArchivenoes'
 import { findImportantnotes } from './utils/findImportantnotes'
+import {findDeletednotes} from './utils/findDeletednotes'
 const NotesCard = ({id,title,text,isPinned}) => {
-    const {notesdispatch,archive,importantnotes}=useNotes()
+    const {notesdispatch,archive,importantnotes,deletednotes}=useNotes()
     const Pinned=(id)=>{
         !isPinned ?
         notesdispatch({
@@ -19,6 +20,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
 
     const isArchivenotes=findArchivenotes(archive,id)
     const isImportantnotes=findImportantnotes(importantnotes,id)
+    const isdeletednotes=findDeletednotes(deletednotes,id)
     
     const addArchive=(id)=>{
       !isArchivenotes ?
@@ -37,6 +39,17 @@ const NotesCard = ({id,title,text,isPinned}) => {
         payload:{id}
       })
     }
+    const onDelete=(id)=>{
+      !isdeletednotes ? 
+      notesdispatch({
+        type:'add_to_bin',
+        payload:{id}
+      }) :
+      notesdispatch({
+        type:'remove_from_bin',
+        payload:{id}
+      })
+    }
 
     
     
@@ -45,7 +58,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
         <div className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>
       <div className='flex items-center relative'>
                 <p>{title}</p>
-                {(!isArchivenotes && !isImportantnotes) ?
+                {!isArchivenotes ?
                 <button onClick={()=>Pinned(id)}className='absolute top-0 right-0 '>
                 <span className={isPinned ? 'material-icons' : 'material-icons-outlined'}>push_pin</span>
                 </button> :<></>}
@@ -62,7 +75,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
                   
                   <div className="ml-auto mt-2">
                   <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>
-                  <button><span className='material-icons-outlined'>delete</span></button>
+                  <button onClick={()=>onDelete(id)}><span className='material-icons-outlined'>delete</span></button>
                 </div>
                 </div>
     </div>
