@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNotes } from './context/NotesContext'
-import { findArchivenotes } from './utils/findArchivenoes'
+import { findArchivenotes } from './utils/findArchivenotes'
 import { findDeletednotes } from './utils/findDeletednotes'
 const NotesCard = ({id,title,text,isPinned}) => {
     const {notesdispatch,archive,deletednotes}=useNotes()
