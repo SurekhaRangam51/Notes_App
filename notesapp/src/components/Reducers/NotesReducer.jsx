@@ -42,13 +42,21 @@ export const NotesReducer=(state,{type,payload})=>{
                 return{
                     ...state,
                     archive:state.archive.filter((note)=>note.id!==payload.id),
-                    notes:[...state.notes,state.archive.filter((note)=>note.id===payload.id)]
+                    notes:[...state.notes,state.archive.find((note)=>note.id===payload.id)]
                 }
             case 'add_to_important':
                 return{
                     ...state,
                     importantnotes:[...state.importantnotes,state.notes.find((note)=>note.id===payload.id)],
                     notes:state.notes.filter((note)=>note.id!==payload.id)
+                }
+            case 'remove_from_important':
+                return{
+                    ...state,
+                    
+                    notes:[...state.notes,state.importantnotes.find((note)=>note.id===payload.id)],
+                    importantnotes:state.importantnotes.filter((note)=>note.id!==payload.id)
+                    
                 }
     
         default:

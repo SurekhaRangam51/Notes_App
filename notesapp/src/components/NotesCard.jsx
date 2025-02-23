@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNotes } from './context/NotesContext'
-import { findArchivenotes } from './utils/findArchivenoes'
+import { findArchivenotes } from './utils/findArchivenotes'
 import { findImportantnotes } from './utils/findImportantnotes'
 const NotesCard = ({id,title,text,isPinned}) => {
     const {notesdispatch,archive,importantnotes}=useNotes()
@@ -32,8 +32,13 @@ const NotesCard = ({id,title,text,isPinned}) => {
       })
     }
     const addImportant=(id)=>{
+      !isImportantnotes ?
       notesdispatch({
         type:'add_to_important',
+        payload:{id}
+      }) :
+      notesdispatch({
+        type:'remove_from_important',
         payload:{id}
       })
     }
@@ -56,12 +61,15 @@ const NotesCard = ({id,title,text,isPinned}) => {
                   <div className='flex flex-col'>
                   <p>{text}</p>
                   <div>
-                  <button onClick={()=>addImportant(id)}><span className='material-icons-outlined "absolute bottom-0 left-0 '>label</span></button>
+                  <button onClick={()=>addImportant(id)}><span className={!isImportantnotes ? "material-icons-outlined" :"material-icons"}>
+                                label
+                            </span></button>
                   </div>
                   </div>
                   
-                  <div className="ml-auto mt-2">
-                  <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>
+                  <div className="ml-auto mt-2">{
+                    !isImportantnotes &&
+                  <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>}
                   <button><span className='material-icons-outlined'>delete</span></button>
                 </div>
                 </div>
