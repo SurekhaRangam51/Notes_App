@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import NotesCard from './NotesCard'
 import { useNotes } from "./context/NotesContext";
 const Home = () => {
-  const {id,title,text,notes,notesdispatch,archive}=useNotes()
+  const {id,title,text,notes,notesdispatch}=useNotes()
   const getTitle = (e) => {
     notesdispatch({
       type: "title",
@@ -29,7 +29,7 @@ const Home = () => {
   const pinnednotes=notes?.length>0 && notes.filter(note=>note.isPinned==true)
   const othernotes=notes?.length>0 && notes.filter(({isPinned})=>!isPinned)
     
-  console.log(archive)
+  
   
   return (
     <div>

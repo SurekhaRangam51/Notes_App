@@ -11,11 +11,11 @@ const Sidebar = () => {
       <span className="material-icons-outlined">home</span>
         <span>Home</span>
         </NavLink>
-        <NavLink className={getstyle} to='/important'>
+        <NavLink className={getstyle} to='/importantnotes'>
         <span class="material-icons">label</span>
             <span>Important</span>
         </NavLink>
-        <NavLink className={getstyle} to='/archive'>
+        <NavLink className={getstyle} to='/archivenotes'>
             <span className='material-icons-outlined'>archive</span>
             <span>Archive</span>
         </NavLink>
