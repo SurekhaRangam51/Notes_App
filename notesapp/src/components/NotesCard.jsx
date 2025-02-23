@@ -77,7 +77,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
                   <div className="ml-auto mt-2">
                     {!isdeletednotes &&
                   <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>}
-                  <button onClick={()=>onDelete(id)}><span className='material-icons-outlined'>delete</span></button>
+                  <button onClick={()=>onDelete(id)}>{!isdeletednotes ? <span className='material-icons-outlined'>delete</span> : <span className='material-icons'>restore_from_trash</span>}</button>
                 </div>
                 </div>
     </div>
