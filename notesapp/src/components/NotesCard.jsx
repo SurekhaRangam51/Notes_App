@@ -18,7 +18,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
     
 
     const isArchivenotes=findArchivenotes(archive,id)
-    const isDeletednotes=findDeletednotes(deletednotes,id)
+    const isDeletednotes=deletednotes ? findDeletednotes(deletednotes,id) : false
     
     const addArchive=(id)=>{
       !isArchivenotes ?

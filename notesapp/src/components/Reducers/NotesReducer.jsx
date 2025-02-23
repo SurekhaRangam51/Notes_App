@@ -44,20 +44,36 @@ export const NotesReducer=(state,{type,payload})=>{
                     archive:state.archive.filter((note)=>note.id!==payload.id),
                     notes:[...state.notes,state.archive.find((note)=>note.id===payload.id)]
                 }
-            case 'add_to_bin':
-                return{
-                    ...state,
-                    deletednotes:[...state.deletednotes,state.notes.find((note)=>note.id==payload.id)],
-                    notes:state.notes.filter((note)=>note.id!==payload.id)
-
+                case 'add_to_bin': {
+                    // Try finding the note in `notes` first
+                    let noteToDelete = state.notes.find(note => note.id === payload.id);
+                
+                    // If not in `notes`, check `archive`
+                    if (!noteToDelete) {
+                        noteToDelete = state.archive.find(note => note.id === payload.id);
+                    }
+                
+                    // If note still not found, return state
+                    if (!noteToDelete) return state;  
+                
+                    return {
+                        ...state,
+                        deletednotes: [...state.deletednotes, { ...noteToDelete }],
+                        notes: state.notes.filter(note => note.id !== payload.id),
+                        archive: state.archive.filter(note => note.id !== payload.id) //  Remove from archive too
+                    };
                 }
-            case "remove_from_bin":
-                return{
-                    ...state,
-                    deletednotes:state.deletednotes.filter((note)=>note.id!==payload.id),
-                    notes:[...state.notes,state.deletednotes.find((note)=>note.id===payload.id)]
-
-                }
+                
+                
+                    case 'remove_from_bin':
+                        const noteToRestore = state.deletednotes.find(note => note.id === payload.id);
+                        if (!noteToRestore) return state; // Prevents undefined from being added back
+                        return {
+                            ...state,
+                            deletednotes: state.deletednotes.filter(note => note.id !== payload.id),
+                            notes: [...state.notes, noteToRestore]
+                        };
+                    
         default:
             return state
     }
