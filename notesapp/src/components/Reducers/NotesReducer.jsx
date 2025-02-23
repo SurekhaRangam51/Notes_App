@@ -44,7 +44,20 @@ export const NotesReducer=(state,{type,payload})=>{
                     archive:state.archive.filter((note)=>note.id!==payload.id),
                     notes:[...state.notes,state.archive.find((note)=>note.id===payload.id)]
                 }
-    
+            case 'add_to_bin':
+                return{
+                    ...state,
+                    deletednotes:[...state.deletednotes,state.notes.find((note)=>note.id==payload.id)],
+                    notes:state.notes.filter((note)=>note.id!==payload.id)
+
+                }
+            case "remove_from_bin":
+                return{
+                    ...state,
+                    deletednotes:state.deletednotes.filter((note)=>note.id!==payload.id),
+                    notes:[...state.notes,state.deletednotes.find((note)=>note.id===payload.id)]
+
+                }
         default:
             return state
     }
