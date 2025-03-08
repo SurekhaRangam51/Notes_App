@@ -64,6 +64,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
                   <button onClick={()=>addImportant(id)}><span className={!isImportantnotes ? "material-icons-outlined" :"material-icons"}>
                                 label
                             </span></button>
+                            <button>check</button> <button>check</button>
                   </div>
                   </div>
                   
