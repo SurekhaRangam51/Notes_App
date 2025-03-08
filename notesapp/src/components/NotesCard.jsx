@@ -2,8 +2,10 @@ import React from 'react'
 import { useNotes } from './context/NotesContext'
 import { findArchivenotes } from './utils/findArchivenotes'
 import { findImportantnotes } from './utils/findImportantnotes'
+import { findDeletednotes } from './utils/findDeletednotes'
+
 const NotesCard = ({id,title,text,isPinned}) => {
-    const {notesdispatch,archive,importantnotes}=useNotes()
+    const {notesdispatch,archive,deletednotes,importantnotes}=useNotes()
     const Pinned=(id)=>{
         !isPinned ?
         notesdispatch({
@@ -19,6 +21,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
 
     const isArchivenotes=findArchivenotes(archive,id)
     const isImportantnotes=findImportantnotes(importantnotes,id)
+    const isDeletednotes=deletednotes ? findDeletednotes(deletednotes,id) : false
     
     const addArchive=(id)=>{
       !isArchivenotes ?
@@ -42,7 +45,17 @@ const NotesCard = ({id,title,text,isPinned}) => {
         payload:{id}
       })
     }
-
+    const onDelete=(id)=>{
+      !isDeletednotes ?
+      notesdispatch({
+        type:"add_to_bin",
+        payload:{id}
+      }) :
+      notesdispatch({
+        type:"remove_from_bin",
+        payload:{id}
+      })
+    }
     
     
   return (
