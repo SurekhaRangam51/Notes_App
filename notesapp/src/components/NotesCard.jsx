@@ -1,9 +1,9 @@
 import React from 'react'
 import { useNotes } from './context/NotesContext'
 import { findArchivenotes } from './utils/findArchivenotes'
-import { findDeletednotes } from './utils/findDeletednotes'
+import { findImportantnotes } from './utils/findImportantnotes'
 const NotesCard = ({id,title,text,isPinned}) => {
-    const {notesdispatch,archive,deletednotes}=useNotes()
+    const {notesdispatch,archive,importantnotes}=useNotes()
     const Pinned=(id)=>{
         !isPinned ?
         notesdispatch({
@@ -18,7 +18,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
     
 
     const isArchivenotes=findArchivenotes(archive,id)
-    const isDeletednotes=deletednotes ? findDeletednotes(deletednotes,id) : false
+    const isImportantnotes=findImportantnotes(importantnotes,id)
     
     const addArchive=(id)=>{
       !isArchivenotes ?
@@ -31,8 +31,8 @@ const NotesCard = ({id,title,text,isPinned}) => {
         payload:{id}
       })
     }
-    const onDelete=(id)=>{
-      !isDeletednotes ?
+    const addImportant=(id)=>{
+      !isImportantnotes ?
       notesdispatch({
         type:"add_to_bin",
         payload:{id}
@@ -50,7 +50,7 @@ const NotesCard = ({id,title,text,isPinned}) => {
         <div className='w-[300px] border-2 border-gray-300 p-3 rounded-md shadow-md mt-5'>
       <div className='flex items-center relative'>
                 <p>{title}</p>
-                  {(!isArchivenotes && !isDeletednotes) ?
+                {(!isArchivenotes && !isImportantnotes) ?
                 <button onClick={()=>Pinned(id)}className='absolute top-0 right-0 '>
                 <span className={isPinned ? 'material-icons' : 'material-icons-outlined'}>push_pin</span>
                 </button>: <></>}
@@ -59,13 +59,19 @@ const NotesCard = ({id,title,text,isPinned}) => {
                 <hr />
                 <div className='flex items-center'>
                   <p>{text}</p>
-                  <div className="ml-auto mt-2">
-                    {!isDeletednotes &&
+                  <div>
+                  <button onClick={()=>addImportant(id)}><span className={!isImportantnotes ? "material-icons-outlined" :"material-icons"}>
+                                label
+                            </span></button>
+                  </div>
+                  </div>
+                  
+                  <div className="ml-auto mt-2">{
+                    !isImportantnotes &&
                   <button onClick={()=>addArchive(id)}><span className={isArchivenotes ? 'material-icons':'material-icons-outlined'}>archive</span></button>}
                   <button onClick={()=>onDelete(id)}>{!isDeletednotes ? <span className='material-icons-outlined'>delete</span>: <span className="material-icons">restore_from_trash</span>}</button>
                 </div>
                 </div>
-    </div>
     </div>
   )
 }
